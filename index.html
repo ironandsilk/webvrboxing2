@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <title>Welcome to WebVR Boxer</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-  </head>
-  
-  <body>
 
-    
-    <a-scene fog="color: #50bfe7; far: 0; type: linear;" shadow="receive: true; cast: true;">
-      <a-assets>
+<head>
+	<title>Welcome to WebVR Boxer</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="https://aframe.io/releases/1.0.3/aframe.min.js">
+	</script>
+</head>
 
-        <img id="logopng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Flogo.png?v=1579914372350">
+<body>
+
+
+	<a-scene fog="color: #50bfe7; far: 0; type: linear;" shadow="receive: true; cast: true;">
+		<a-assets>
+
+			<img id="logopng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Flogo.png?v=1579914372350">
         <img id="skybox" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fskybox.jpg?v=1580947980953">        
                 
         <img id="ui-center-img" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fui-center.png?v=1580954336153">
@@ -21,11 +22,18 @@
         <img id="ui-leftpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fui-left.png?v=1580954331980">
         <img id="ui-rightpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fui-right.png?v=1580954332147">
         
-      <img id="cardpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fcard.png?v=1579914373001">
+        <img id="cardpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fcard.png?v=1579914373001">
+
         <img id="button-next" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fnext.png?v=1580954329538">
         
         <a-asset-item id="boxingringmodel" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fboxing-ring.glb?v=1580066239119"></a-asset-item>
+        
         <a-asset-item id="shoes-model" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fairmax-270.glb?v=1580511968809"></a-asset-item>
+
+		    <a-assets-item id="gloves-model" src="https://storageapi.fleek.co/53f5140f-ed54-4cb5-a784-ebe4191d6d70-bucket/3D assets/gloves.glb"></a-asset-item>
+
+        <a-assets-item id="golden-gloves-model" src="assets/golden-gloves.glb"></a-asset-item>
+
 
       </a-assets>
       
@@ -113,9 +121,15 @@
      <!--these are the 3D models -->
       
       
-      <a-entity id="ring" position="0 -0.5 0" rotation="0 0 0"
+      <a-entity id="boxingring" position="0 -0.5 0" rotation="0 0 0"
           gltf-model="#boxingringmodel"
           shadow="cast: true; receive: false"></a-entity>
+
+      <a-entity id="gloves" position="0 2 -0.25"
+          gltf-model="#gloves-model"><a-entity>
+
+      <a-entity id="golden-gloves" position="0 1 0" scale="2 2 2"
+          gltf-model="#golden-gloves-model"><a-entity>
       
       <!--
       <a-plane id="ground" geometry="height: 5000; width: 5000;" material="color: #ffffff; metalness: 0.5; opacity: 1; repeat: 1 1; roughness: 1; shader: standard; side: double;"
