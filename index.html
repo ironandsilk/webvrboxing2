@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title>Welcome to WebVR Boxer</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+  </head>
+  
+  <body>
+
+    
+    <a-scene fog="color: #50bfe7; far: 0; type: linear;" shadow="receive: true; cast: true;">
+      <a-assets>
+
+        <img id="logopng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Flogo.png?v=1579914372350">
+        <img id="skybox" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fskybox.jpg?v=1580947980953">        
+                
+        <img id="ui-center-img" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fui-center.png?v=1580954336153">
+        <img id="ui-4x4samplepng" src="assets/Hy5SZyKfU/ui-4x4 sample.png">
+        <img id="ui-leftpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fui-left.png?v=1580954331980">
+        <img id="ui-rightpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fui-right.png?v=1580954332147">
+        
+      <img id="cardpng" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fcard.png?v=1579914373001">
+        <img id="button-next" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fnext.png?v=1580954329538">
+        
+        <a-asset-item id="boxingringmodel" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fboxing-ring.glb?v=1580066239119"></a-asset-item>
+        <a-asset-item id="shoes-model" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fairmax-270.glb?v=1580511968809"></a-asset-item>
+
+      </a-assets>
+      
+      <!--this is the custom camera-->
+      <a-entity camera look-controls wasd-controls="acceleration: 75; easing: 10; enabled: true; fly: false;" position="0 1.6 3" cursor="rayOrigin: mouse;" raycaster="objects: .clickable; interval: 1;">
+      <a-entity cursor="fuse: true; fuseTimeout: 500"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: blue; shader: flat">
+      </a-entity>
+    </a-entity>
+      
+    <!--this is the original camera-->  
+    <!--<a-entity id="main-camera-wrapper" position="0 0 3" rotation="0 0 0">
+        <a-camera id="main-camera" visible="true" wasd-controls="acceleration: 75; easing: 10; enabled: true; fly: false;"
+        position="0 1.6 0" cursor="rayOrigin: mouse;" raycaster="objects: .clickable; interval: 1;"></a-camera>
+      </a-entity> -->
+      
+     
+    <!--this is the background-->
+     <a-sky id="sky" geometry="radius: 5000; segmentsHeight: 20; segmentsWidth: 64;"
+      material="color: #ffffff; flatShading: true; opacity: 1; repeat: 1 1; shader: standard; side: double; src: #skybox;"
+      position="0 0 0" rotation="0 0 0" scale="-1 1 1" shadow="receive: true; cast: true;"
+      visible="true"></a-sky>
+      
+      <!--this is the logo-->
+      <a-image id="image" position="0.00 2.78 -2.75" rotation="0 0 0" scale="0.5 0.5 1"
+      geometry="width: 2; height: 1.5;" material="color: #ffffff; opacity: 0.95; shader: standard; side: double; src: #logopng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-image>
+
+      <!--this is the the 2D UI-->
+      
+            <a-entity id="ui-group" position="0 0 0" rotation="0 0 0" visible="true" >
+        
+        <a-plane id="ui-left" position="-2.25 1.6 -2" rotation="0.00 19.4 0.00" scale="0.5 0.5 0.5"
+        geometry="width: 4; height: 3;" material="color: #ffffff; opacity: .9; shader: flat; side: double; src: #ui-leftpng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+        shadow="cast: false; receive: false;" visible="true"></a-plane>
+        
+        <a-plane id="ui-center" position="0 1.6 -2.25" rotation="0 0 0" scale="0.5 0.5 0.5"
+        geometry="width: 4; height: 3;" material="color: #ffffff; opacity: .9; shader: flat; side: double; src: #ui-center-img; metalness: 0.5; roughness: 1; repeat: 1 1;"
+        shadow="cast: false; receive: false;" visible="true" 
+         animation="property: scale; to: 0.6 0.6 0.6; dur: 8000; easing: linear; elasticity: 400; delay: 200; dir: normal; loop: 0; "></a-plane>
+        
+        <a-plane id="ui-right" position="2.25 1.6 -2" rotation="0.00 -19.5 0.00"
+        scale="0.5 0.5 0.5" geometry="width: 4; height: 3;" material="color: #ffffff; opacity: .9; shader: flat; side: double; src: #ui-rightpng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+        shadow="cast: false; receive: false;" visible="true" class="clickable"
+                 animation="startEvents: click; property: position; to: 2.25 1.60 -2.00; dur: 2000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "></a-plane>
+      </a-entity>
+      
+
+      
+      <!--this is the interactive button linking to the next scene-->
+      <a-cylinder id="button-face" position="0.00 0.50 -2.00" rotation="0 90.00 90.00"
+      scale="0.5 0.5 0.5" geometry="height: .1; radius: .5; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #c27f7f; opacity: 1; shader: flat; src: #button-next; metalness: 0.1; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: false; receive: false;" visible="true" class="clickable"
+      animation="property: scale; to: 0.55 0.55 0.55; dur: 1000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+      animation__1="startEvents: click; property: position; to: 0.00 0.50 -2.1; dur: 500; easing: linear; elasticity: 400; delay: 100; dir: normal; loop: 0; "
+      animation__2="startEvents: click; property: scale; to: 0.4 0.4 0.4; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+      animation__3="startEvents: click; property: position; to: 0.00 0.50 -2.00; dur: 500; easing: linear; elasticity: 400; delay: 600; dir: normal; loop: 0;"
+      link="href: scene2.html"></a-cylinder>
+     
+      <!--this is the back of the button-->
+      <a-cylinder id="button-backplate" position="0 0.50 -2.25" rotation="0 90.00 90.00"
+      scale="0.6 0.6 0.6" geometry="height: .25; radius: .5; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #0800ff; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: false; receive: false;" visible="true"></a-cylinder>
+
+      <a-entity id="shoes" gltf-model="#shoes-model" position="-2 0.5 -1" rotation="15 0 -19" scale="0.25 0.25 0.25"></a-entity>
+      
+  
+      <a-plane id="plane-1" position="2.25 1.60 -2.25" rotation="0.00 -19.5 0.00"
+      scale="0.5 0.5 0.5" geometry="width: 4; height: 3;" material="color: #ffffff; opacity: 1; shader: standard; side: double; src: #cardpng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-plane>
+      
+      <a-plane id="plane-2" position="-2.25 1.60 -2.25" rotation="0.00 19.4 0.00"
+      scale="0.5 0.5 0.5" geometry="width: 4; height: 3;" material="color: #ffffff; opacity: 1; shader: standard; side: double; src: #cardpng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-plane>
+      
+      <a-plane id="plane" position="0 1.6 -2.5" rotation="0 0 0" scale="0.5 0.5 0.5"
+      geometry="width: 4; height: 3;" material="color: #ffffff; opacity: 1; shader: standard; side: double; src: #cardpng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-plane>
+            
+
+     <!--these are the 3D models -->
+      
+      
+      <a-entity id="ring" position="0 -0.5 0" rotation="0 0 0"
+          gltf-model="#boxingringmodel"
+          shadow="cast: true; receive: false"></a-entity>
+      
+      <!--
+      <a-plane id="ground" geometry="height: 5000; width: 5000;" material="color: #ffffff; metalness: 0.5; opacity: 1; repeat: 1 1; roughness: 1; shader: standard; side: double;"
+      position="0 0 0" rotation="-90 0 0" shadow="receive: true; cast: true;" visible="true"></a-plane> -->
+      
+      <a-light id="point-light-1" light="castShadow: false; color: #ffffff; distance: 0; intensity: 1; type: point;"
+      position="0 7 5" visible="true"></a-light>
+      
+      
+
+      
+    </a-scene>
+  </body>
+
+</html>
