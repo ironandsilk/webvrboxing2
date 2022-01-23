@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title>Scene with Physics</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <!-- we updated the AFrame source script -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+
+    <script src="main.js"></script>
+  </head>
+  
+  <body>
+
+    
+    <a-scene physics fog="color: #50bfe7; far: 0; type: linear;" shadow="receive: true; cast: true;">
+      <a-assets>
+        
+        <img id="skybox" src="https://cdn.glitch.com/72123426-0931-403f-b287-74cc08d0c191%2Fskybox.jpg?v=1580878165605">
+        <img id="PIA12348_largejpg" src="assets/SyURM7fG8/PIA12348_large.jpg">
+        <img id="logopng" src="https://cdn.glitch.com/72123426-0931-403f-b287-74cc08d0c191%2Flogo.png?v=1580879318401">
+        
+        <img id="button-back" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fexit.png?v=1580954329513">
+        <img id="button-refresh" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Frefresh.png?v=1580954329435">
+      </a-assets>
+      
+      <!-- camera try 3-->
+    <a-entity camera look-controls position="0 1.6 3">
+      <a-entity cursor="fuse: true; fuseTimeout: 500"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: blue; shader: flat">
+      </a-entity>
+    </a-entity>
+
+    <!--  
+    <a-entity oculus-touch-controls="hand: left">
+      </a-entity>
+      <a-entity oculus-touch-controls="hand: right">
+        -->
+      
+      <!-- via Nuri
+          <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: [raycastable]"></a-entity>
+      <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: [raycastable]"></a-entity>
+  
+      <a-entity id="teleHand"
+        hand-controls="left"
+        teleport-controls="type: parabolic; collisionEntities: [mixin='voxel'], #ground"
+      ></a-entity>
+
+      <a-entity id="blockHand"
+        hand-controls="right"
+        controller-cursor
+        intersection-spawn="event: click; mixin: voxel"
+      ></a-entity>
+      -->
+      
+      <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
+      dynamic-body
+        >
+      </a-entity>
+<a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
+      static-body></a-entity>
+
+      
+      <a-cylinder id="start-button" position="0.00 1.25 -1.50" rotation="90 0.00 0.00"
+      scale="1.00 0.15 1.00" geometry="height: 2; radius: 1; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #ff0000; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true" class="clickable"
+      animation="startEvents: click; property: scale; to: 0 0 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "></a-cylinder>
+      
+      
+            <!--this is button 1 to go back to the index.html - previous scene-->
+      <a-cylinder id="button-face" position="-0.35 0.50 -2.00" rotation="0 90.00 90.00"
+      scale="0.5 0.5 0.5" geometry="height: .1; radius: .5; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #c27f7f; opacity: 1; shader: flat; src: #button-back; metalness: 0.1; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true" class="clickable"
+      link="href: index.html"
+      animation="startEvents: click; property: position; to: 0.00 0.50 -2.1; dur: 500; easing: linear; elasticity: 400; delay: 100; dir: normal; loop: 0; "
+      animation__1="startEvents: click; property: scale; to: 0.4 0.4 0.4; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+      animation__2="startEvents: click; property: position; to: 0.00 0.50 -2.00; dur: 500; easing: linear; elasticity: 400; delay: 600; dir: normal; loop: 0; "></a-cylinder>
+     
+      <!--this is the back of the button-->
+      <a-cylinder id="button-backplate" position="-0.35 0.50 -2.25" rotation="0 90.00 90.00"
+      scale="0.6 0.6 0.6" geometry="height: .3; radius: .5; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #0800ff; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-cylinder>
+
+
+     
+       <!--this is button 2 to refresh this page - reload scene-->
+      <a-cylinder id="button-face2" position="0.35 0.5 -2.0" rotation="0 90.00 90.00"
+      scale="0.5 0.5 0.5" geometry="height: .1; radius: .5; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #c27f7f; opacity: 1; shader: standard; src: #button-refresh; metalness: 0.1; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true" class="clickable"
+      link="href: scene2.html"
+     animation="startEvents: click; property: position; to: 0.00 0.50 -2.1; dur: 500; easing: linear; elasticity: 400; delay: 100; dir: normal; loop: 0; "
+      animation__1="startEvents: click; property: scale; to: 0.4 0.4 0.4; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+      animation__2="startEvents: click; property: position; to: 0.00 0.50 -2.00; dur: 500; easing: linear; elasticity: 400; delay: 600; dir: normal; loop: 0; "></a-cylinder>
+     
+      <a-cylinder id="button-backplate2" position="0.35 0.50 -2.25" rotation="0 90.00 90.00"
+      scale="0.6 0.6 0.6" geometry="height: .3; radius: .5; openEnded: false; thetaStart: 0; thetaLength: 360;"
+      material="color: #0800ff; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-cylinder>
+
+      <a-entity id="punching-bag-right-parent" position="0.3 1.1 0.5">
+       <a-cylinder id="punchingbag-right" position="0 0 0" material="opacity: 0.88; color: #00afff; metalness: 0.09" geometry="" scale="0.25 1 0.25"
+                   dynamic body>     
+          </a-cylinder>
+        </a-entity>
+      
+      <a-cylinder id="punchingbag-left" position="-0.3 1.16253 0.51101" material="opacity: 0.88; color: #00afff; metalness: 0.09" geometry="" scale="0.25 1 0.25"
+      static-body>     
+      </a-cylinder>
+      
+      <a-box id="bag" position="0 0.5 -0.3" scale="0.4 1 .5"
+             dynamic-body></a-box>
+      
+      <a-box id="bag3" position="0.5 0.5 -0.3" scale="0.4 1 .5"
+             dynamic-body></a-box>
+      <a-box id="bag4" position="0.5 1 -0.3" scale="0.2 0.2 0.2"
+             dynamic-body></a-box>
+      
+      <a-box id="bag2" position="-0.5 0.5 -0.3" scale="0.4 1 .5"
+             static-body></a-box>
+      
+      <a-entity id="target-group" position="-0.75 1.5 -2.75" rotation="0 0 0"
+      visible="true" animation="property: position; to: 0 1.49 12; dur: 15000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; ">
+        
+        <a-sphere id="dodge" position="1.47 0.26 -4.05" rotation="0 0 0" scale="1 1 1" geometry="radius: .1;"
+        material="color: #ff0707; opacity: 1; shader: standard; metalness: 0.5; roughness: 0.4; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" animation="startEvents: scene-started; property: material.opacity; to: .8; dur: 1000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; "
+        animation__1="startEvents: scene-started; property: geometry.radius; to: 0.5; dur: 2000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; "
+        static-body></a-sphere>
+        
+        <a-sphere id="cross" position="0.4720.25 -3."
+        rotation="0 0 0" scale="1 1 1" geometry="radius: .25;" material="color: #00ff85; opacity: .8; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" class="clickable" animation="startEvents: click; property: scale; to: 0 0 0; dur: 800; easing: easeInOutQuad; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        animation__1="startEvents: click; property: material.opacity; to: 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        static-body></a-sphere>
+        
+        <a-sphere id="jab" position="1.2 0.25 -2."
+        rotation="0 0 0" scale="1 1 1" geometry="radius: .25;" material="color: #00ff85; opacity: .8; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" class="clickable" animation="startEvents: click; property: material.opacity; to: 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        animation__1="startEvents: click; property: scale; to: 0 0 0; dur: 800; easing: easeInOutQuad; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        static-body></a-sphere>
+        
+        <a-sphere id="cross-1" position="0.47 0.26 -7.75" rotation="0 0 0" scale="1 1 1"
+        geometry="radius: .25;" material="color: #00ff85; opacity: .8; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" class="clickable" animation="startEvents: click; property: scale; to: 0 0 0; dur: 800; easing: easeInOutQuad; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        animation__1="startEvents: click; property: material.opacity; to: 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        static-body></a-sphere>
+        
+        <a-sphere id="jab-2" position="1.22 0.26 -10.00" rotation="0 0 0" scale="1 1 1"
+        geometry="radius: .25;" material="color: #00ff85; opacity: .8; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" class="clickable" animation="startEvents: click; property: material.opacity; to: 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        animation__1="startEvents: click; property: scale; to: 0 0 0; dur: 1000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        static-body></a-sphere>
+        
+        <a-sphere id="jab-1" position="1.4720165399902212 0.25767336923460404 -6.553708008091014"
+        rotation="0 0 0" scale="1 1 1" geometry="radius: .25;" material="color: #00ff85; opacity: .8; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" class="clickable" animation="startEvents: click; property: scale; to: 0 0 0; dur: 800; easing: easeInOutQuad; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        animation__1="startEvents: click; property: material.opacity; to: 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+      dynamic-body></a-sphere>
+        
+        <a-sphere id="hook" position="0.97 0.26 -8.75" rotation="0 0 0" scale="1 1 1"
+        geometry="radius: .25;" material="color: #00ff85; opacity: .8; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" class="clickable" animation="startEvents: click; property: material.opacity; to: 0; dur: 500; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        animation__1="startEvents: click; property: scale; to: 0 0 0; dur: 800; easing: easeInOutQuad; elasticity: 400; delay: 0; dir: normal; loop: 0; "
+        dynamic-body></a-sphere>
+        
+        <a-sphere id="dodge-1" position="0.2 0.25 -4.00" rotation="0 0 0" scale="1 1 1"
+        geometry="radius: .1;" material="color: #ff0707; opacity: 1; shader: standard; metalness: 0.5; roughness: 0.4; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" animation="property: geometry.radius; to: .3; dur: 2000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; "
+        animation__1="property: material.opacity; to: .8; dur: 1000; easing: linear; elasticity: 400; delay: 0; dir: alternate; loop: true; "
+        dynamic-body></a-sphere>
+        
+        <a-sphere id="dodge-2" position="1.4 0.25 -5.25"
+        rotation="0 0 0" scale="1 1 1" geometry="radius: .1;" material="color: #ff0707; opacity: 1; shader: standard; metalness: 0.5; roughness: 0.4; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true" animation="property: geometry.radius; to: .3; dur: 2000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; "
+        animation__1="property: material.opacity; to: .8; dur: 1000; easing: linear; elasticity: 400; delay: 0; dir: alternate; loop: true; "
+        dynamic-body></a-sphere>
+      </a-entity>
+      
+      <a-torus id="timer-bg" position="0 2.5 -2.1" rotation="0 0 0" scale="0.15 0.15 0.15"
+      geometry="radius: 1; radiusTubular: .15; arc: 360;" material="color: #ffffff; opacity: 1; shader: standard; side: double; metalness: 0.25; roughness: 1; repeat: 1 1;"
+      shadow="cast: false; receive: true;" visible="true"
+       dynamic-body></a-torus>
+      
+      <a-cylinder id="timer" position="0.00 2.50 -2.00" rotation="-90 -90.00 -90.00"
+      scale="0.3 0.3 0.3" geometry="height: .25; radius: .5; openEnded: true; thetaStart: 0; thetaLength: 360;"
+      material="color: #ff0000; opacity: 1; shader: flat; metalness: 0; roughness: 0; side: double; repeat: 1 1;"
+      shadow="cast: false; receive: false;" visible="true" animation="property: geometry.thetaLength; to: 0; dur: 60000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; "></a-cylinder>
+      
+      <a-image id="image-1" position="0.00 3.00 -2.50" rotation="0 0 0" scale="0.5 0.5 0.5"
+      geometry="width: 2; height: 1.5;" material="color: #ffffff; opacity: 0.91; shader: standard; side: double; src: #logopng; metalness: 0.5; roughness: 1; repeat: 1 1;"
+      shadow="cast: false; receive: false;" visible="true"></a-image>
+      
+      <a-text id="text-end" position="0.00 2.25 -2.00" rotation="0 0 0" scale="0 0 0"
+      text="value: Good Job; align: center; opacity: 0; color: #ffffff; wrapCount: 80; letterSpacing: 0; lineHeight: 64; width: 6; height: 0; side: double; anchor: center;"
+      shadow="cast: true; receive: true;" visible="true" animation="startEvents: start-button-clicked; property: scale; to: 1 1 1; dur: 1000; easing: linear; elasticity: 400; delay: 15000; dir: normal; loop: 0; "></a-text>
+      
+      <a-text id="text-time" position="0.00 2.25 -2.00" rotation="0 0 0" scale="1 1 1"
+      text="value: Time remaining; align: center; opacity: 1; color: #ffffff; wrapCount: 80; letterSpacing: 0; lineHeight: 64; width: 6; height: 0; side: double; anchor: center;"
+      shadow="cast: true; receive: true;" visible="true" animation="startEvents: start-button-clicked; property: scale; to: 0 0 0; dur: 2000; easing: linear; elasticity: 400; delay: 15000; dir: normal; loop: 0; "></a-text>
+      
+      <a-sphere id="sphere" position="0.25 1.97 null" rotation="0 0 0" scale="1 1 1"
+      geometry="radius: .25;" material="color: #ffffff; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+      shadow="cast: true; receive: true;" visible="true"></a-sphere>
+      
+      <a-text id="text-instux" position="0.00 1.50 1.50" rotation="0 0 0" scale="0.25 0.25 0.25"
+      text="value: Look at the green targets; align: center; opacity: 1; color: #ffffff; wrapCount: 36; letterSpacing: 0; lineHeight: 64; width: 6; height: 0; side: double; anchor: center;"
+      shadow="cast: true; receive: true;" visible="true" animation="property: text.opacity; to: 0; dur: 2000; easing: linear; elasticity: 400; delay: 100; dir: normal; loop: 0; "></a-text>
+      
+      <a-entity id="jab-group" position="0 0 0" rotation="0 0 0" visible="true">
+        
+        <a-cylinder id="jab-target" position="0.5 1.74 -4.25" rotation="90.00 0.00 0.00"
+        scale="0.5 0.25 0.5" geometry="height: 2; radius: 1; openEnded: false; thetaStart: 0; thetaLength: 360;"
+        material="color: #ffffff; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true"></a-cylinder>
+        
+        <a-text id="jab-target-label" position="0.5 2.1 -3.75" rotation="0 0 0"
+        scale="1 1 1" text="value: L; align: center; opacity: 1; color: #ffffff; wrapCount: 36; letterSpacing: 0; lineHeight: 64; width: 6; height: 0; side: double; anchor: center;"
+        shadow="cast: true; receive: true;" visible="true"></a-text>
+      </a-entity>
+      
+      <a-entity id="cross-group" position="-0.50 1.05 -4.25" rotation="0 0 0" visible="true">
+        
+        <a-cylinder id="cross-target" position="0 0.69 0" rotation="90 0 0" scale="0.5 0.25 0.5"
+        geometry="height: 2; radius: 1; openEnded: false; thetaStart: 0; thetaLength: 360;"
+        material="color: #ffffff; opacity: 1; shader: standard; metalness: 0.5; roughness: 1; side: double; repeat: 1 1;"
+        shadow="cast: true; receive: true;" visible="true"></a-cylinder>
+        
+        <a-text id="cross-target-label" position="0 1.05 0.5" rotation="0 0 0"
+        scale="1 1 1" text="value: R; align: center; opacity: 1; color: #ffffff; wrapCount: 36; letterSpacing: 0; lineHeight: 64; width: 6; height: 0; side: double; anchor: center;"
+        shadow="cast: true; receive: true;" visible="true"></a-text>
+      </a-entity>
+      
+
+      
+      <a-sky id="sky" geometry="radius: 5000; segmentsHeight: 20; segmentsWidth: 64;"
+      material="color: #ffefef; flatShading: true; opacity: 1; repeat: 0.5 0.5; shader: standard; side: double; src: #skybox;"
+      position="0 0 0" rotation="0 0 0" scale="-1 1 1" shadow="receive: true; cast: true;"
+      visible="true"></a-sky>
+      
+      <a-plane id="ground" geometry="height: 5000; width: 5000;" material="color: #6a0dad; metalness: 0.5; opacity: 1; repeat: 1 1; roughness: 1; shader: standard; side: double;"
+      position="0 0 0" rotation="-90 0 0" shadow="receive: true; cast: true;" visible="true"
+       static-body></a-plane>
+      
+      <a-light id="point-light-1" light="castShadow: false; color: #ffffff; distance: 0; intensity: 1; type: point;"
+      position="0 7 5" visible="true"></a-light>
+    </a-scene>
+  </body>
+
+</html>
