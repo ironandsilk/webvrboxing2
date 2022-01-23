@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <title>Future OS Interactive with Animations and Link </title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <!-- we updated the AFrame source script -->
-    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-    <script src="aframe-animation-component.min.js"></script>
-    <script src="main.js"></script>
-  </head>
-  
-  <body>
 
-    
-    <a-scene fog="color: #50bfe7; far: 0; type: linear;" shadow="receive: true; cast: true;">
-      <a-assets>
-        
-        <img id="skybox" src="https://cdn.glitch.com/72123426-0931-403f-b287-74cc08d0c191%2Fskybox.jpg?v=1580878165605">
+<head>
+	<title>Future OS Interactive with Animations and Link </title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<!-- we updated the AFrame source script -->
+	<script src="https://aframe.io/releases/1.0.0/aframe.min.js">
+	</script>
+	<script src="aframe-animation-component.min.js">
+	</script>
+	<script src="main.js">
+	</script>
+</head>
+
+<body>
+
+
+	<a-scene fog="color: #50bfe7; far: 0; type: linear;" shadow="receive: true; cast: true;">
+		<a-assets>
+
+			<img id="skybox" src="https://cdn.glitch.com/72123426-0931-403f-b287-74cc08d0c191%2Fskybox.jpg?v=1580878165605">
         <img id="PIA12348_largejpg" src="assets/SyURM7fG8/PIA12348_large.jpg">
         <img id="logopng" src="https://cdn.glitch.com/72123426-0931-403f-b287-74cc08d0c191%2Flogo.png?v=1580879318401">
         
         <img id="button-back" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fexit.png?v=1580954329513">
         <img id="button-refresh" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Frefresh.png?v=1580954329435">
         <img id="button-next" src="https://cdn.glitch.com/27cf52cf-2f95-4fd5-b82f-2208dd091820%2Fnext.png?v=1580954329538">
+        
+       <a-asset-item id="hook-model" repsonse-type="arraybuffer"
+                      src="assets/hook-boxing.gltf"></a-asset-item>
       </a-assets>
       
       <!-- camera try 3-->
@@ -112,7 +118,7 @@
       material="color: #c27f7f; opacity: 1; shader: standard; src: #button-next; metalness: 0.1; roughness: 1; side: double; repeat: 1 1;"
       shadow="cast: true; receive: true;" visible="true" class="clickable"
       link="href: scene3.html"
-></a-cylinder>
+      ></a-cylinder>
      
       <!--this is the back of the button-->
       <a-cylinder id="button-backplate3" position="1 .5 -2.25" rotation="0 90.00 90.00"
@@ -121,7 +127,15 @@
       shadow="cast: true; receive: true;" visible="true"></a-cylinder>
       
       
-      
+      <a-entity id="boxing-demo"
+        gltf-model="#hook-model"
+        position="-2 0 -2"
+        rotation="0 0 0"
+        scale="0.1 0.1 0.1"
+              animation-mixer="clip:mixamo.com; timeScale:1; loop:pingpong; crossFadeDuration:0"> 
+      </a-entity>
+
+
       <a-entity id="target-group" position="-0.75 1.5 -2.75" rotation="0 0 0"
       visible="true" animation="property: position; to: 0 1.49 12; dur: 15000; easing: linear; elasticity: 400; delay: 0; dir: normal; loop: true; ">
         
